@@ -26,7 +26,7 @@ function Navbar({ isLoggedIn, userName, onSignOut }) {
               <i className="fa fa-user-circle"></i>
               {' '}{userName}
             </Link>
-            <button className="main-nav-item" onClick={handleSignOut} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold', color: '#2c3e50', fontSize: '1rem' }}>
+            <button className="main-nav-item main-nav-sign-out" onClick={handleSignOut}>
               <i className="fa fa-sign-out"></i>
               {' '}Sign Out
             </button>
