@@ -8,7 +8,7 @@ export const store = configureStore({
 })
 
 export { logout } from './authSlice'
-export { login, fetchProfile } from './authActions'
+export { login, fetchProfile, updateProfile } from './authActions'
 export {
   selectToken,
   selectUser,

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { login, fetchProfile } from './authActions'
+import { login, fetchProfile, updateProfile } from './authActions'
 
 const authSlice = createSlice({
   name: 'auth',
@@ -33,6 +33,9 @@ const authSlice = createSlice({
         state.error = action.payload
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
+        state.user = action.payload
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
         state.user = action.payload
       })
   },

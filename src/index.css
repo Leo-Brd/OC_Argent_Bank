@@ -290,6 +290,44 @@ body {
   font-size: 35px;
 }
 
+.edit-name-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.edit-name-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-name-input {
+  padding: 8px;
+  font-size: 1.1rem;
+  width: 140px;
+}
+
+.edit-name-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-name-btn {
+  padding: 8px 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.edit-name-btn:hover {
+  background-color: #f0f0f0;
+}
+
 .transaction-button {
   display: block;
   width: 100%;

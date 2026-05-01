@@ -22,6 +22,26 @@ export const login = createAsyncThunk(
   }
 )
 
+export const updateProfile = createAsyncThunk(
+  'auth/updateProfile',
+  async ({ firstName, lastName }, { getState, rejectWithValue }) => {
+    const token = getState().auth.token
+    const response = await fetch(`${API_BASE}/user/profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ firstName, lastName }),
+    })
+    const data = await response.json()
+    if (!response.ok) {
+      return rejectWithValue(data.message)
+    }
+    return data.body
+  }
+)
+
 export const fetchProfile = createAsyncThunk(
   'auth/fetchProfile',
   async (_, { getState, rejectWithValue }) => {
