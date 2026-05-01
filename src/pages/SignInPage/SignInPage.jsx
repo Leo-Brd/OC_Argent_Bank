@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { login, fetchProfile } from '../../store/authSlice'
+import { login, fetchProfile, selectAuthStatus, selectAuthError } from '../../store'
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 
@@ -11,7 +11,8 @@ function SignInPage() {
   const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { status, error } = useSelector((state) => state.auth)
+  const status = useSelector(selectAuthStatus)
+  const error = useSelector(selectAuthError)
 
   const handleSubmit = async (e) => {
     e.preventDefault()

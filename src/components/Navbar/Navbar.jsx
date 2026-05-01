@@ -1,12 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../store/authSlice'
+import { logout, selectToken, selectUser } from '../../store'
 import logo from '../../assets/argentBankLogo.png'
 
 function Navbar() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { token, user } = useSelector((state) => state.auth)
+  const token = useSelector(selectToken)
+  const user = useSelector(selectUser)
 
   const handleSignOut = () => {
     dispatch(logout())

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProfile } from '../../store/authSlice'
+import { fetchProfile, selectToken, selectUser } from '../../store'
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import Account from '../../components/Account/Account'
@@ -27,7 +27,8 @@ const accounts = [
 function UserPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { token, user } = useSelector((state) => state.auth)
+  const token = useSelector(selectToken)
+  const user = useSelector(selectUser)
 
   useEffect(() => {
     if (!token) {
