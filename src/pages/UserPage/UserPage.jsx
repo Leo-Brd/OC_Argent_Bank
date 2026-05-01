@@ -1,3 +1,7 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProfile } from '../../store/authSlice'
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import Account from '../../components/Account/Account'
@@ -20,13 +24,29 @@ const accounts = [
   },
 ]
 
-function UserPage({ userName, onSignOut }) {
+function UserPage() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { token, user } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+      return
+    }
+    if (!user) {
+      dispatch(fetchProfile())
+    }
+  }, [token, user, dispatch, navigate])
+
+  if (!token) return null
+
   return (
     <>
-      <Navbar isLoggedIn={true} userName={userName} onSignOut={onSignOut} />
+      <Navbar />
       <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back<br />{userName}!</h1>
+          <h1>Welcome back<br />{user ? `${user.firstName} ${user.lastName}` : ''}!</h1>
           <button className="edit-button">Edit Name</button>
         </div>
         <h2 className="sr-only">Accounts</h2>

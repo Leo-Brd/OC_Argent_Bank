@@ -1,18 +1,25 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, fetchProfile } from '../../store/authSlice'
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 
-function SignInPage({ onSignIn }) {
-  const [username, setUsername] = useState('')
+function SignInPage() {
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { status, error } = useSelector((state) => state.auth)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (onSignIn) onSignIn(username)
-    navigate('/user')
+    const result = await dispatch(login({ email, password, rememberMe }))
+    if (login.fulfilled.match(result)) {
+      await dispatch(fetchProfile())
+      navigate('/profile')
+    }
   }
 
   return (
@@ -28,8 +35,8 @@ function SignInPage({ onSignIn }) {
               <input
                 type="text"
                 id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-wrapper">
@@ -50,7 +57,14 @@ function SignInPage({ onSignIn }) {
               />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            <button type="submit" className="sign-in-button">Sign In</button>
+            {error && <p style={{ color: 'red', textAlign: 'left' }}>{error}</p>}
+            <button
+              type="submit"
+              className="sign-in-button"
+              disabled={status === 'loading'}
+            >
+              {status === 'loading' ? 'Signing in...' : 'Sign In'}
+            </button>
           </form>
         </section>
       </main>

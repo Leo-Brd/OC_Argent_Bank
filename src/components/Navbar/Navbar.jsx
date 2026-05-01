@@ -1,11 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../store/authSlice'
 import logo from '../../assets/argentBankLogo.png'
 
-function Navbar({ isLoggedIn, userName, onSignOut }) {
+function Navbar() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { token, user } = useSelector((state) => state.auth)
 
   const handleSignOut = () => {
-    if (onSignOut) onSignOut()
+    dispatch(logout())
     navigate('/')
   }
 
@@ -20,11 +24,11 @@ function Navbar({ isLoggedIn, userName, onSignOut }) {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        {isLoggedIn ? (
+        {token ? (
           <>
-            <Link className="main-nav-item" to="/user">
+            <Link className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i>
-              {' '}{userName}
+              {' '}{user?.firstName}
             </Link>
             <button className="main-nav-item main-nav-sign-out" onClick={handleSignOut}>
               <i className="fa fa-sign-out"></i>
@@ -32,7 +36,7 @@ function Navbar({ isLoggedIn, userName, onSignOut }) {
             </button>
           </>
         ) : (
-          <Link className="main-nav-item" to="/sign-in">
+          <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             {' '}Sign In
           </Link>

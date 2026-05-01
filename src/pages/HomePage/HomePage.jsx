@@ -3,10 +3,10 @@ import Footer from '../../components/Footer/Footer'
 import Hero from '../../components/Hero/Hero'
 import Features from '../../components/Features/Features'
 
-function HomePage({ isLoggedIn, userName, onSignOut }) {
+function HomePage() {
   return (
     <>
-      <Navbar isLoggedIn={isLoggedIn} userName={userName} onSignOut={onSignOut} />
+      <Navbar />
       <main>
         <Hero />
         <Features />
