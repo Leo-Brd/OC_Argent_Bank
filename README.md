@@ -1,3 +1,6 @@
+<img width="206" height="54" alt="image" src="https://github.com/user-attachments/assets/ee285344-5d49-4d5c-8213-a7a600bff872" />
+
+
 # ArgentBank — Application bancaire
 
 Projet 13 de la formation OpenClassrooms Développeur React.
